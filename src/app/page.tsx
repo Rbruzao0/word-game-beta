@@ -202,7 +202,7 @@ const MainPage = () => {
               </Typography>
           </NoSsr>
           <CountupTimer started={started}/>
-          <Achievements words={word} />
+          <Achievements words={word} longWords={longWord} hyphenWords={hyphenWord}/>
         </Box>
       </Container>
     </>
