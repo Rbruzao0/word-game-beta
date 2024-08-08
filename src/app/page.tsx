@@ -2,7 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
-import { Alert, Box, Container, InputBase, NoSsr, Paper, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Container,
+  InputBase,
+  NoSsr,
+  Paper,
+  Typography,
+} from "@mui/material";
 
 import NavBar from "./components/NavBar";
 import jklmWordsDict from "./dictionaries/misc/jklmWordsDict";
@@ -94,7 +102,7 @@ const MainPage = () => {
       resetGame();
       getRandomWord();
       setTextInputValue("");
-      setStarted(true)
+      setStarted(true);
       return true;
     }
     if (textInputValue === "/reset") {
@@ -197,12 +205,14 @@ const MainPage = () => {
                 onChange={(e) => setTextInputValue(e.target.value)}
               />
             </Paper>
-            <Typography>
-              /end to... to end, actually
-              </Typography>
+            <Typography>/end to... to end, actually</Typography>
           </NoSsr>
-          <CountupTimer started={started}/>
-          <Achievements words={word} longWords={longWord} hyphenWords={hyphenWord}/>
+          <CountupTimer started={started} />
+          <Achievements
+            words={word}
+            longWords={longWord}
+            hyphenWords={hyphenWord}
+          />
         </Box>
       </Container>
     </>
