@@ -24,6 +24,7 @@ import englishMathWordsDict from "./english/englishMathWordsDict";
 import englishNonsenseWordsDict from "./english/englishNonsenseWordsDict";
 import englishPlantsDict from "./english/englishPlantsDict";
 import englishProfissionsDict from "./english/englishProfissionsDict";
+import englishAllWordsDict from "./english/englishAllWordsDict";
 
 const dictionaries = [
   {
@@ -205,6 +206,13 @@ const dictionaries = [
     id: 25,
     dict: englishProfissionsDict,
     name: "ENGLISH PROFISSIONS DICT",
+    price: 100,
+    bought: false,
+  },
+  {
+    id: 26,
+    dict: englishAllWordsDict,
+    name: "ENGLISH ALL WORDS DICT",
     price: 100,
     bought: false,
   },
