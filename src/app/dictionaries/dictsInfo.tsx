@@ -16,6 +16,14 @@ import portugueseLongsDict from "./portuguese/portugueseLongsDict";
 import portugueseAlimentsDict from "./portuguese/portugueseAlimentsDict";
 import portugueseHyphensDict from "./portuguese/portugueseHyphensDict";
 import portugueseApostrophsDict from "./portuguese/portugueseApostrophsDict";
+import englishAdjectivesDict from "./english/englishAdjectivesDict";
+import englishAnimalsDict from "./english/englishAnimalsDict";
+import englishCompoundWordsDict from "./english/englishCompoundWordsDict";
+import englishDifficultWordsDict from "./english/englishDifficultWordsDict";
+import englishMathWordsDict from "./english/englishMathWordsDict";
+import englishNonsenseWordsDict from "./english/englishNonsenseWordsDict";
+import englishPlantsDict from "./english/englishPlantsDict";
+import englishProfissionsDict from "./english/englishProfissionsDict";
 
 const dictionaries = [
   {
@@ -141,6 +149,62 @@ const dictionaries = [
     id: 17,
     dict: portugueseApostrophsDict,
     name: "PORTUGUESE APOSTROPHS DICT",
+    price: 100,
+    bought: false,
+  },
+  {
+    id: 18,
+    dict: englishAdjectivesDict,
+    name: "ENGLISH ADJECTIVES DICT",
+    price: 100,
+    bought: false,
+  },
+  {
+    id: 19,
+    dict: englishAnimalsDict,
+    name: "ENGLISH ANIMALS DICT",
+    price: 100,
+    bought: false,
+  },
+  {
+    id: 20,
+    dict: englishCompoundWordsDict,
+    name: "ENGLISH COMPOUND WORDS DICT",
+    price: 100,
+    bought: false,
+  },
+  {
+    id: 21,
+    dict: englishDifficultWordsDict,
+    name: "ENGLISH DIFFICULT WORDS DICT",
+    price: 100,
+    bought: false,
+  },
+  {
+    id: 22,
+    dict: englishMathWordsDict,
+    name: "ENGLISH MATH WORDS DICT",
+    price: 100,
+    bought: false,
+  },
+  {
+    id: 23,
+    dict: englishNonsenseWordsDict,
+    name: "ENGLISH NONSENSE WORDS DICT",
+    price: 100,
+    bought: false,
+  },
+  {
+    id: 24,
+    dict: englishPlantsDict,
+    name: "ENGLISH PLANTS DICT",
+    price: 100,
+    bought: false,
+  },
+  {
+    id: 25,
+    dict: englishProfissionsDict,
+    name: "ENGLISH PROFISSIONS DICT",
     price: 100,
     bought: false,
   },
