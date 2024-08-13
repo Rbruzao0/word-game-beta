@@ -59,6 +59,7 @@ const MainPage = () => {
   const wrongAnswerAudio = new Audio("/sounds/wrongSound.wav");
 
   const resetGame = () => {
+    getScore()
     setSelectedWord("/start");
     setTextInputValue("");
     setWord(0);
