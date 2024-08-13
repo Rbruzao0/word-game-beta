@@ -27,9 +27,7 @@ const NavBar: React.FC<NavBarProps> = ({
   setPoints,
   setChosenDict,
 }) => {
-  const delay = (ms: number | undefined) => new Promise(res => setTimeout(res, ms));
   const [alertText, setAlertText] = useState("Type /start to start playing")
-  const [tipId, setTipId] = useState(0)
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
