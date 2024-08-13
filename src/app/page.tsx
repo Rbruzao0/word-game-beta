@@ -52,6 +52,7 @@ const MainPage = () => {
   const [error, setError] = useState(0);
   const [sequenceError, setSequenceError] = useState(0);
   const [skippedWords, setSkippedWords] = useState(0);
+  const [favWords, setFavWords] = useState<string[]>([]);
   const [score, setScore] = useState(0);
   const [points, setPoints] = useState(10000);
 
@@ -59,8 +60,9 @@ const MainPage = () => {
   const wrongAnswerAudio = new Audio("/sounds/wrongSound.wav");
 
   const resetGame = () => {
-    getScore()
+    getScore();
     setSelectedWord("/start");
+    setStarted(true)
     setTextInputValue("");
     setWord(0);
     setLongWord(0);
@@ -98,20 +100,31 @@ const MainPage = () => {
     setPoints((prevStatePoints) => prevStatePoints + scoreMath);
   };
 
+  const favoriteWord = () => {
+    setFavWords((prevState) => {
+      
+      if (!prevState.includes(selectedWord)) {
+        return [...prevState, selectedWord];
+      }
+      
+      return prevState;
+    });
+  }
+  
+
   const verifyTextInputCommands = () => {
     if (textInputValue === "/start") {
+      setStarted(false);
       resetGame();
       getRandomWord();
-      setTextInputValue("");
-      setStarted(true);
       return true;
     }
-    if (textInputValue === "/reset") {
+    if (textInputValue === "/reset" || textInputValue === "/restart") {
+      setStarted(false)
       resetGame();
-      setTextInputValue("");
       return true;
     }
-    if (textInputValue === "/skip") {
+    if (textInputValue === "/skip" || textInputValue === "/next") {
       setSkippedWords((prevState) => prevState + 1);
       getRandomWord();
       setTextInputValue("");
@@ -119,8 +132,12 @@ const MainPage = () => {
     }
     if (textInputValue === "/end") {
       setStarted(false);
-      getScore();
       resetGame();
+      return true;
+    }
+    if (textInputValue === "/star" || textInputValue === "/fav") {
+      favoriteWord();
+      console.log(favWords)
       return true;
     }
     return false;
