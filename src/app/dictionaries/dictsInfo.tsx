@@ -25,6 +25,7 @@ import englishNonsenseWordsDict from "./english/englishNonsenseWordsDict";
 import englishPlantsDict from "./english/englishPlantsDict";
 import englishProfissionsDict from "./english/englishProfissionsDict";
 import englishAllWordsDict from "./english/englishAllWordsDict";
+import koreanWordsDict from "./misc/koreanWordsDict";
 
 const dictionaries = [
   {
@@ -216,6 +217,14 @@ const dictionaries = [
     price: 100,
     bought: false,
   },
+  {
+    id: 27,
+    dict: koreanWordsDict,
+    name: "KOREAN COMMON WORDS DICT",
+    price: 100,
+    bought: false,
+  },
+
 ];
 
 export default dictionaries
