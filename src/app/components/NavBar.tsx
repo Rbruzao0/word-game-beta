@@ -15,6 +15,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import dictionaries from "../dictionaries/dictsInfo";
 import tipsDictionary from "../dictionaries/misc/tipsDict";
+import LoginButton from "./LoginButton";
 
 interface NavBarProps {
   points: number;
@@ -97,7 +98,7 @@ const NavBar: React.FC<NavBarProps> = ({
               onClick={handleOpenUserMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              <Typography textAlign="center">CHANGE DICTIONARY</Typography>
+              <Typography>CHANGE DICTIONARY</Typography>
             </Button>
           </Tooltip>
           <Menu
@@ -140,6 +141,7 @@ const NavBar: React.FC<NavBarProps> = ({
           <Typography padding={2} variant="h6">
             POINTS: {points}
           </Typography>
+          <LoginButton />
         </Toolbar>
       </Container>
     </AppBar>

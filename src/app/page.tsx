@@ -16,7 +16,6 @@ import NavBar from "./components/NavBar";
 import jklmWordsDict from "./dictionaries/misc/jklmWordsDict";
 import dictionaries from "./dictionaries/dictsInfo";
 import CountupTimer from "./components/CountupTimer";
-import { CheckCircleOutline } from "@mui/icons-material";
 import Achievements from "./components/Achievements";
 
 const SelectedWordText = styled("div")(({ theme }) => ({
@@ -137,7 +136,6 @@ const MainPage = () => {
     }
     if (textInputValue === "/star" || textInputValue === "/fav") {
       favoriteWord();
-      console.log(favWords)
       return true;
     }
     return false;
