@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import useAuth from "../../hooks/useAuth";
 
 import { Box, Modal, Button, TextField, Typography } from "@mui/material";
+
+import useAuth from "../../hooks/useAuth";
 
 const modalStyle = {
   position: "absolute" as "absolute",

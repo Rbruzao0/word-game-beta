@@ -1,6 +1,8 @@
+import React, { useEffect, useState } from "react";
+
 import { CheckCircleOutline } from "@mui/icons-material";
 import { Alert } from "@mui/material";
-import React, { useState, useEffect } from "react";
+
 import {
   hyphenWordsAchievements,
   longWordsAchievements,

@@ -1,6 +1,8 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
+
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
   AppBar,
   Box,
@@ -12,7 +14,7 @@ import {
   Tooltip,
   Container,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+
 import dictionaries from "../dictionaries/dictsInfo";
 import tipsDictionary from "../dictionaries/misc/tipsDict";
 import LoginButton from "./LoginButton";
