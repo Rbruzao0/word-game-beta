@@ -1,12 +1,29 @@
-import nahuatlSnWordsDict from "./nahuatl/nahuatlSnWordsDict";
+// Nahuatl and Miscellaneous
 import jklmWordsDict from "./misc/jklmWordsDict";
+import koreanWordsDict from "./misc/koreanWordsDict";
+import nahuatlSnWordsDict from "./misc/nahuatlSnWordsDict";
+import pokemonDict from "./misc/pokemonDict";
+
+// English
+import englishAdjectivesDict from "./english/englishAdjectivesDict";
+import englishAllWordsDict from "./english/englishAllWordsDict";
+import englishAnimalsDict from "./english/englishAnimalsDict";
 import englishApostrophizedWordsDict from "./english/englishApostrophizedWordsDict";
+import englishCompoundWordsDict from "./english/englishCompoundWordsDict";
+import englishDifficultWordsDict from "./english/englishDifficultWordsDict";
 import englishHyphenatedWordsDict from "./english/englishHyphenatedWordsDict";
 import englishLongWordsDict from "./english/englishLongWordsDict";
+import englishMathWordsDict from "./english/englishMathWordsDict";
+import englishNonsenseWordsDict from "./english/englishNonsenseWordsDict";
+import englishPlantsDict from "./english/englishPlantsDict";
+import englishProfissionsDict from "./english/englishProfissionsDict";
 import englishSnWordsDict from "./english/englishSnWordsDict";
+
+// Spanish
 import spanishSnWordsDict from "./spanish/spanishSnWordsDict";
 import spanishLongWordsDict from "./spanish/spanishLongWordsDict";
-import pokemonDict from "./misc/pokemonDict";
+
+// Portuguese
 import portugueseProfissionsDict from "./portuguese/portugueseProfissionsDict";
 import portuguesePlantsDict from "./portuguese/portuguesePlantsDict";
 import portugueseLocalsDict from "./portuguese/portugueseLocalsDict";
@@ -16,215 +33,206 @@ import portugueseLongsDict from "./portuguese/portugueseLongsDict";
 import portugueseAlimentsDict from "./portuguese/portugueseAlimentsDict";
 import portugueseHyphensDict from "./portuguese/portugueseHyphensDict";
 import portugueseApostrophsDict from "./portuguese/portugueseApostrophsDict";
-import englishAdjectivesDict from "./english/englishAdjectivesDict";
-import englishAnimalsDict from "./english/englishAnimalsDict";
-import englishCompoundWordsDict from "./english/englishCompoundWordsDict";
-import englishDifficultWordsDict from "./english/englishDifficultWordsDict";
-import englishMathWordsDict from "./english/englishMathWordsDict";
-import englishNonsenseWordsDict from "./english/englishNonsenseWordsDict";
-import englishPlantsDict from "./english/englishPlantsDict";
-import englishProfissionsDict from "./english/englishProfissionsDict";
-import englishAllWordsDict from "./english/englishAllWordsDict";
-import koreanWordsDict from "./misc/koreanWordsDict";
+
 
 const dictionaries = [
   {
     id: 0,
-    dict: jklmWordsDict,
     name: "ALL JKLM WORDS DICT",
+    dict: jklmWordsDict,
     price: 0,
     bought: true,
   },
   {
     id: 1,
-    dict: spanishSnWordsDict,
-    name: "SPANISH SN'S DICT",
+    name: "ENGLISH ADJECTIVES DICT",
+    dict: englishAdjectivesDict,
     price: 100,
     bought: false,
   },
   {
     id: 2,
-    dict: spanishLongWordsDict,
-    name: "SPANISH LONGS DICT",
+    name: "ENGLISH ALL WORDS DICT",
+    dict: englishAllWordsDict,
     price: 100,
     bought: false,
   },
   {
     id: 3,
-    dict: englishSnWordsDict,
-    name: "ENGLISH SN'S DICT",
+    name: "ENGLISH ANIMALS DICT",
+    dict: englishAnimalsDict,
     price: 100,
     bought: false,
   },
   {
     id: 4,
-    dict: englishLongWordsDict,
-    name: "ENGLISH LONGS DICT",
+    name: "ENGLISH APOSTROPHIZEDS DICT",
+    dict: englishApostrophizedWordsDict,
     price: 100,
     bought: false,
   },
   {
     id: 5,
-    dict: englishApostrophizedWordsDict,
-    name: "ENGLISH APOSTROPHIZEDS DICT",
+    name: "ENGLISH COMPOUND WORDS DICT",
+    dict: englishCompoundWordsDict,
     price: 100,
     bought: false,
   },
   {
     id: 6,
-    dict: englishHyphenatedWordsDict,
-    name: "ENGLISH HYPHENATEDS DICT",
+    name: "ENGLISH DIFFICULT WORDS DICT",
+    dict: englishDifficultWordsDict,
     price: 100,
     bought: false,
   },
   {
     id: 7,
-    dict: nahuatlSnWordsDict,
-    name: "NAHUATL SN'S DICT",
-    price: 300,
+    name: "ENGLISH HYPHENATEDS DICT",
+    dict: englishHyphenatedWordsDict,
+    price: 100,
     bought: false,
   },
   {
     id: 8,
-    dict: pokemonDict,
-    name: "POKEMONS DICT",
-    price: 500,
+    name: "ENGLISH LONGS DICT",
+    dict: englishLongWordsDict,
+    price: 100,
     bought: false,
   },
   {
     id: 9,
-    dict:portugueseProfissionsDict,
-    name: "PORTUGUESE PROFISSIONS DICT",
+    name: "ENGLISH MATH WORDS DICT",
+    dict: englishMathWordsDict,
     price: 100,
     bought: false,
   },
   {
     id: 10,
-    dict: portuguesePlantsDict,
-    name: "PORTUGUESE PLANTS DICT",
+    name: "ENGLISH NONSENSE WORDS DICT",
+    dict: englishNonsenseWordsDict,
     price: 100,
     bought: false,
   },
   {
     id: 11,
-    dict: portugueseLocalsDict,
-    name: "PORTUGUESE LOCAL DICTS",
+    name: "ENGLISH PLANTS DICT",
+    dict: englishPlantsDict,
     price: 100,
     bought: false,
   },
   {
     id: 12,
-    dict: portugueseAnimalsDict,
-    name: "PORTUGUESE ANIMALS DICT",
+    name: "ENGLISH PROFISSIONS DICT",
+    dict: englishProfissionsDict,
     price: 100,
     bought: false,
   },
   {
     id: 13,
-    dict: portugueseLongsDict,
-    name: "PORTUGUESE LONGS DICT",
+    name: "ENGLISH SN'S DICT",
+    dict: englishSnWordsDict,
     price: 100,
     bought: false,
   },
   {
     id: 14,
-    dict: portugueseLongHyphensDict,
-    name: "PORTUGUESE LONG HYPHENS DICT",
+    name: "PORTUGUESE ALIMENTS DICT",
+    dict: portugueseAlimentsDict,
     price: 100,
     bought: false,
   },
   {
     id: 15,
-    dict: portugueseAlimentsDict,
-    name: "PORTUGUESE ALIMENTS DICT",
+    name: "PORTUGUESE ANIMALS DICT",
+    dict: portugueseAnimalsDict,
     price: 100,
     bought: false,
   },
   {
     id: 16,
-    dict: portugueseHyphensDict,
-    name: "PORTUGUESE HYPHENS DICT",
+    name: "PORTUGUESE APOSTROPHS DICT",
+    dict: portugueseApostrophsDict,
     price: 100,
     bought: false,
   },
   {
     id: 17,
-    dict: portugueseApostrophsDict,
-    name: "PORTUGUESE APOSTROPHS DICT",
+    name: "PORTUGUESE HYPHENS DICT",
+    dict: portugueseHyphensDict,
     price: 100,
     bought: false,
   },
   {
     id: 18,
-    dict: englishAdjectivesDict,
-    name: "ENGLISH ADJECTIVES DICT",
+    name: "PORTUGUESE LOCAL DICTS",
+    dict: portugueseLocalsDict,
     price: 100,
     bought: false,
   },
   {
     id: 19,
-    dict: englishAnimalsDict,
-    name: "ENGLISH ANIMALS DICT",
+    name: "PORTUGUESE LONG HYPHENS DICT",
+    dict: portugueseLongHyphensDict,
     price: 100,
     bought: false,
   },
   {
     id: 20,
-    dict: englishCompoundWordsDict,
-    name: "ENGLISH COMPOUND WORDS DICT",
+    name: "PORTUGUESE LONGS DICT",
+    dict: portugueseLongsDict,
     price: 100,
     bought: false,
   },
   {
     id: 21,
-    dict: englishDifficultWordsDict,
-    name: "ENGLISH DIFFICULT WORDS DICT",
+    name: "PORTUGUESE PLANTS DICT",
+    dict: portuguesePlantsDict,
     price: 100,
     bought: false,
   },
   {
     id: 22,
-    dict: englishMathWordsDict,
-    name: "ENGLISH MATH WORDS DICT",
+    name: "PORTUGUESE PROFISSIONS DICT",
+    dict: portugueseProfissionsDict,
     price: 100,
     bought: false,
   },
   {
     id: 23,
-    dict: englishNonsenseWordsDict,
-    name: "ENGLISH NONSENSE WORDS DICT",
-    price: 100,
+    name: "POKEMONS DICT",
+    dict: pokemonDict,
+    price: 500,
     bought: false,
   },
   {
     id: 24,
-    dict: englishPlantsDict,
-    name: "ENGLISH PLANTS DICT",
+    name: "SPANISH LONGS DICT",
+    dict: spanishLongWordsDict,
     price: 100,
     bought: false,
   },
   {
     id: 25,
-    dict: englishProfissionsDict,
-    name: "ENGLISH PROFISSIONS DICT",
+    name: "SPANISH SN'S DICT",
+    dict: spanishSnWordsDict,
     price: 100,
     bought: false,
   },
   {
     id: 26,
-    dict: englishAllWordsDict,
-    name: "ENGLISH ALL WORDS DICT",
+    name: "KOREAN COMMON WORDS DICT",
+    dict: koreanWordsDict,
     price: 100,
     bought: false,
   },
   {
     id: 27,
-    dict: koreanWordsDict,
-    name: "KOREAN COMMON WORDS DICT",
-    price: 100,
+    name: "NAHUATL SN'S DICT",
+    dict: nahuatlSnWordsDict,
+    price: 300,
     bought: false,
   },
-
 ];
+
 
 export default dictionaries
