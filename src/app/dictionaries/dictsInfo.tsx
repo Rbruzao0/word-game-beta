@@ -1,6 +1,7 @@
 // Nahuatl and Miscellaneous
 import jklmWordsDict from "./misc/jklmWordsDict";
 import koreanWordsDict from "./misc/koreanWordsDict";
+import leagueOfLegendsDict from "./misc/leagueOfLegendsDict";
 import nahuatlSnWordsDict from "./misc/nahuatlSnWordsDict";
 import pokemonDict from "./misc/pokemonDict";
 
@@ -229,6 +230,13 @@ const dictionaries = [
     id: 27,
     name: "NAHUATL SN'S DICT",
     dict: nahuatlSnWordsDict,
+    price: 300,
+    bought: false,
+  },
+  {
+    id: 28,
+    name: "LEAGUE OF LEGENDS DICT",
+    dict: leagueOfLegendsDict,
     price: 300,
     bought: false,
   },
