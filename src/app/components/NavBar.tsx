@@ -1,7 +1,6 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
-
+import React, { useEffect, useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
   AppBar,
@@ -20,35 +19,27 @@ import tipsDictionary from "../dictionaries/misc/tipsDict";
 import LoginButton from "./LoginButton";
 
 interface NavBarProps {
+  setChosenDict: (value: React.SetStateAction<number | undefined>) => void;
   points: number;
   setPoints: (value: React.SetStateAction<number>) => void;
-  setChosenDict: (value: React.SetStateAction<number | undefined>) => void;
 }
 
 const NavBar: React.FC<NavBarProps> = ({
+  setChosenDict,
   points,
   setPoints,
-  setChosenDict,
 }) => {
-  const [alertText, setAlertText] = useState("Type /start to start playing")
-
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
-
-  const getRandomTip = async () => {
-    const randomIndex = Math.floor(Math.random() * tipsDictionary.length);
-    setAlertText(tipsDictionary[randomIndex]);
-  }
+  const [tipText, setTipText] = useState("Type /start to start playing");
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      getRandomTip();
+      const randomIndex = Math.floor(Math.random() * tipsDictionary.length);
+      setTipText(tipsDictionary[randomIndex]);
     }, 5000);
 
     return () => clearInterval(intervalId);
   }, []);
-
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -59,8 +50,8 @@ const NavBar: React.FC<NavBarProps> = ({
   };
 
   const handleChangeDict = (dict: { id: number; name: string }) => {
-    setAnchorElUser(null);
     setChosenDict(dict.id);
+    setAnchorElUser(null);
     alert(`The dictionary has been changed to ${dict.name}`);
   };
 
@@ -71,76 +62,73 @@ const NavBar: React.FC<NavBarProps> = ({
     name: string;
   }) => {
     setAnchorElUser(null);
-    if (dict.bought) return alert(`The dict ${dict.name} is already yours`);
+    if (dict.bought) return alert(`${dict.name} is already yours`);
     if (points < dict.price)
       return alert(
-        `You need more ${dict.price - points} points to buy this dict`
+        `You need ${dict.price - points} more points to buy ${dict.name}`
       );
-    setPoints(points - dict.price);
+
+    setPoints((prevPoints) => prevPoints - dict.price);
     dict.bought = true;
     setChosenDict(dict.id);
-    alert(`Successful purchased ${dict.name}`);
+    alert(`Successfully purchased ${dict.name}`);
   };
 
-  const isDictBought = (dict: {
+  const handleDictionarySelection = (dict: {
     bought: boolean;
     id: number;
     name: string;
     price: number;
   }) => {
-    return dict.bought ? handleChangeDict(dict) : handleBuyDictionary(dict);
+    dict.bought ? handleChangeDict(dict) : handleBuyDictionary(dict);
   };
 
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Tooltip title="Open dicts">
-            <Button
-              onClick={handleOpenUserMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
+          <Tooltip title="Open dictionaries">
+            <Button onClick={handleOpenUserMenu} sx={{ color: "white" }}>
               <Typography>CHANGE DICTIONARY</Typography>
             </Button>
           </Tooltip>
           <Menu
-            sx={{ mt: "45px" }}
             id="menu-appbar"
             anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
             open={Boolean(anchorElUser)}
             onClose={handleCloseNavMenu}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
           >
             {dictionaries.map((dict) => (
-              <Tooltip title={`Contains ${dict.dict.length} words`}>
-              <MenuItem key={dict.id} onClick={() => isDictBought(dict)}>
-                <Box flexGrow={1}>
-                  <Typography>{dict.name}</Typography>
-                </Box>
-                {!dict.bought && dict.price > 0 && (
-                  <Typography paddingLeft={2}>{dict.price}</Typography>
-                )}
-                {!dict.bought && (
-                  <Box paddingLeft={1}>
-                    <LockOutlinedIcon />
+              <Tooltip
+                key={dict.id}
+                title={`Contains ${dict.dict.length} words`}
+              >
+                <MenuItem onClick={() => handleDictionarySelection(dict)}>
+                  <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    width="100%"
+                  >
+                    <Typography>{dict.name}</Typography>
                   </Box>
-                )}
-              </MenuItem>
+                  {!dict.bought && (
+                    <>
+                      {dict.price > 0 && <Typography>{dict.price}</Typography>}
+                      <LockOutlinedIcon sx={{ ml: 1 }} />
+                    </>
+                  )}
+                </MenuItem>
               </Tooltip>
             ))}
           </Menu>
-          <Box sx={{ flexGrow: 1 }} />
-          <Typography maxWidth={1000} align="center" variant="h5">{alertText}</Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <Typography padding={2} variant="h6">
+          <Box flexGrow={1} />
+          <Typography align="center" variant="h5">
+            {tipText}
+          </Typography>
+          <Box flexGrow={1} />
+          <Typography variant="h6" sx={{ p: 2 }}>
             POINTS: {points}
           </Typography>
           <LoginButton />
