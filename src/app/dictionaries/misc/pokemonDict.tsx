@@ -189,7 +189,7 @@ const pokemonDict = [
   "EXEGGCUTE",
   "EXEGGUTOR",
   "EXPLOUD",
-  "FARFETCH’D",
+  "FARFETCH'D",
   "FEAROW",
   "FEEBAS",
   "FENNEKIN",

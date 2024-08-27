@@ -69,7 +69,7 @@ const englishNonsenseWordsDict = [
   "AMINGTOWCH",
   "AMINTER",
   "AMMIGLE",
-  "AMN’T",
+  "AMN'T",
   "AMPLEARED",
   "ANCEFULS",
   "ANECTE",
