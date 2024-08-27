@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
   AppBar,
@@ -24,11 +24,7 @@ interface NavBarProps {
   setPoints: (value: React.SetStateAction<number>) => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({
-  setChosenDict,
-  points,
-  setPoints,
-}) => {
+const NavBar: React.FC<NavBarProps> = ({ setChosenDict, points, setPoints }) => {
   const [tipText, setTipText] = useState("Type /start to start playing");
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -45,43 +41,27 @@ const NavBar: React.FC<NavBarProps> = ({
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElUser(null);
-  };
+  const handleCloseNavMenu = () => setAnchorElUser(null);
 
-  const handleChangeDict = (dict: { id: number; name: string }) => {
-    setChosenDict(dict.id);
-    setAnchorElUser(null);
-    alert(`The dictionary has been changed to ${dict.name}`);
-  };
-
-  const handleBuyDictionary = (dict: {
-    id: number;
-    bought: boolean;
-    price: number;
-    name: string;
-  }) => {
-    setAnchorElUser(null);
-    if (dict.bought) return alert(`${dict.name} is already yours`);
-    if (points < dict.price)
-      return alert(
-        `You need ${dict.price - points} more points to buy ${dict.name}`
-      );
-
-    setPoints((prevPoints) => prevPoints - dict.price);
-    dict.bought = true;
-    setChosenDict(dict.id);
-    alert(`Successfully purchased ${dict.name}`);
-  };
-
-  const handleDictionarySelection = (dict: {
-    bought: boolean;
-    id: number;
-    name: string;
-    price: number;
-  }) => {
-    dict.bought ? handleChangeDict(dict) : handleBuyDictionary(dict);
-  };
+  const handleDictionarySelection = useCallback(
+    (dict: { bought: boolean; id: number; name: string; price: number }) => {
+      if (dict.bought) {
+        setChosenDict(dict.id);
+        alert(`The dictionary has been changed to ${dict.name}`);
+      } else {
+        if (points < dict.price) {
+          alert(`You need ${dict.price - points} more points to buy ${dict.name}`);
+        } else {
+          setPoints((prevPoints) => prevPoints - dict.price);
+          dict.bought = true;
+          setChosenDict(dict.id);
+          alert(`Successfully purchased ${dict.name}`);
+        }
+      }
+      handleCloseNavMenu();
+    },
+    [points, setChosenDict, setPoints]
+  );
 
   return (
     <AppBar position="fixed">
@@ -101,24 +81,17 @@ const NavBar: React.FC<NavBarProps> = ({
             transformOrigin={{ vertical: "top", horizontal: "right" }}
           >
             {dictionaries.map((dict) => (
-              <Tooltip
-                key={dict.id}
-                title={`Contains ${dict.dict.length} words`}
-              >
+              <Tooltip key={dict.id} title={`Contains ${dict.dict.length} words`}>
                 <MenuItem onClick={() => handleDictionarySelection(dict)}>
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    width="100%"
-                  >
+                  <Box display="flex" justifyContent="space-between" width="100%">
                     <Typography>{dict.name}</Typography>
+                    {!dict.bought && (
+                      <>
+                        {dict.price > 0 && <Typography>{dict.price}</Typography>}
+                        <LockOutlinedIcon sx={{ ml: 1 }} />
+                      </>
+                    )}
                   </Box>
-                  {!dict.bought && (
-                    <>
-                      {dict.price > 0 && <Typography>{dict.price}</Typography>}
-                      <LockOutlinedIcon sx={{ ml: 1 }} />
-                    </>
-                  )}
                 </MenuItem>
               </Tooltip>
             ))}

@@ -1,7 +1,6 @@
-"use client";
+
 
 import React, { useEffect, useState } from "react";
-
 import { CheckCircleOutline } from "@mui/icons-material";
 import { Alert } from "@mui/material";
 
@@ -34,7 +33,18 @@ const Achievements: React.FC<AchievementsProps> = ({
     useState<Achievement | null>(null);
 
   useEffect(() => {
-    const achievement = wordsAchievements.find((ach) => ach.words === words);
+    const checkAchievements = () => {
+      const achievement =
+        wordsAchievements.find((ach) => ach.words === words) ||
+        longWordsAchievements.find((ach) => ach.longWords === longWords) ||
+        hyphenWordsAchievements.find((ach) => ach.hyphenWords === hyphenWords);
+
+      if (achievement) {
+        setCurrentAchievement(achievement);
+      }
+    };
+
+    checkAchievements();
 
     if (currentAchievement) {
       const timer = setTimeout(() => {
@@ -43,51 +53,11 @@ const Achievements: React.FC<AchievementsProps> = ({
 
       return () => clearTimeout(timer);
     }
-
-    if (achievement) {
-      setCurrentAchievement(achievement);
-    }
-  }, [words]);
-
-  useEffect(() => {
-    const achievement = longWordsAchievements.find(
-      (ach) => ach.longWords === longWords
-    );
-
-    if (currentAchievement) {
-      const timer = setTimeout(() => {
-        setCurrentAchievement(null);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-
-    if (achievement) {
-      setCurrentAchievement(achievement);
-    }
-  }, [longWords]);
-
-  useEffect(() => {
-    const achievement = hyphenWordsAchievements.find(
-      (ach) => ach.hyphenWords === hyphenWords
-    );
-
-    if (currentAchievement) {
-      const timer = setTimeout(() => {
-        setCurrentAchievement(null);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-
-    if (achievement) {
-      setCurrentAchievement(achievement);
-    }
-  }, [hyphenWords]);
+  }, [words, longWords, hyphenWords, currentAchievement]);
 
   return (
     <>
-      {currentAchievement !== null && (
+      {currentAchievement && (
         <Alert
           sx={{ position: "fixed", bottom: 10 }}
           icon={<CheckCircleOutline fontSize="inherit" />}

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import { Box, Modal, Button, TextField, Typography } from "@mui/material";
-
 import useAuth from "../../hooks/useAuth";
 
 const modalStyle = {
@@ -49,16 +47,16 @@ const LoginButton: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [action, setAction] = useState<"login" | "signup">("login");
   const [logged, setLogged] = useState(false);
-
-  const { signin, signup, signout } = useAuth() as AuthContextType;
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [error, setError] = useState("");
 
+  const { signin, signup, signout } = useAuth() as AuthContextType;
+
   const toggleModal = () => setOpen((prev) => !prev);
-  const toggleAction = () => setAction(action === "login" ? "signup" : "login");
+  const toggleAction = () =>
+    setAction((prevAction) => (prevAction === "login" ? "signup" : "login"));
 
   const handleAuth = async () => {
     if (!username || !password || (action === "signup" && !passwordConfirm)) {
@@ -70,32 +68,27 @@ const LoginButton: React.FC = () => {
     }
 
     try {
-      if(action === "login") {
-        const res = signin(username, password)
-        await res
+      if (action === "login") {
+        const res = await signin(username, password);
+        if (typeof res === "string") return setError(res);
 
-        
-        if (typeof(res) === "string") return setError(res);
-        
-        setError("")
-        setLogged(true); 
+        setError("");
+        setLogged(true);
         toggleModal();
-        return;
+      } else {
+        await signup(username, password);
+        toggleAction();
       }
-      
-      await signup(username, password);
-      
-      toggleAction();
     } catch (err) {
       setError(err instanceof Error ? err.message : `${action} failed`);
     }
   };
 
   const handleLogout = async () => {
-    setLogged(false)
-
     await signout();
-  }
+    setLogged(false);
+  };
+
   return (
     <div>
       {!logged ? (
@@ -105,13 +98,7 @@ const LoginButton: React.FC = () => {
           </Button>
           <Modal open={open} onClose={toggleModal}>
             <Box sx={modalStyle}>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                }}
-              >
+              <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
                 <StyledFilledTextField
                   label="Username"
                   value={username}
