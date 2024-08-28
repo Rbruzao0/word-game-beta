@@ -56,7 +56,7 @@ const useGameLogic = (): GameLogic => {
   const resetGame = useCallback(() => {
     calculateScore();
     setSelectedWord("/start");
-    setStarted(true);
+    setStarted(false);
     setTextInputValue("");
     setStats(INITIAL_STATS);
   }, []);
@@ -99,9 +99,14 @@ const useGameLogic = (): GameLogic => {
   const handleCommands = useCallback(() => {
     const commands = {
       "/start": () => {
-        setStarted(false);
-        resetGame();
-        getRandomWord();
+        if (started === true) {
+          return setTextInputValue("");
+        } else {
+          setStarted(true);
+          setTextInputValue("");
+          getRandomWord();
+        };
+
       },
       "/reset": resetGame,
       "/restart": resetGame,

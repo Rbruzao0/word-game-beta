@@ -9,14 +9,19 @@ const CountupTimer: React.FC<CountupTimerProps> = ({ started }) => {
   const [timer, setTimer] = useState(0);
 
   useEffect(() => {
-    if (!started) {
+    let intervalId: NodeJS.Timeout | undefined;
+
+    if (started) {
+      intervalId = setInterval(() => {
+        setTimer((prevTimer) => prevTimer + 1);
+      }, 1000);
+    } else {
       setTimer(0);
-      return;
     }
 
-    const intervalId = setInterval(() => setTimer((prevTimer) => prevTimer + 1), 1000);
-
-    return () => clearInterval(intervalId);
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
   }, [started]);
 
   return (
