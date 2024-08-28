@@ -54,11 +54,13 @@ const useGameLogic = (): GameLogic => {
   const wrongAnswerAudio = new Audio("/sounds/wrongSound.wav");
 
   const resetGame = useCallback(() => {
-    calculateScore();
     setSelectedWord("/start");
     setStarted(false);
     setTextInputValue("");
-    setStats(INITIAL_STATS);
+    setStats((prevStats) => ({
+      ...INITIAL_STATS,
+      points: prevStats.points,
+    }));
   }, []);
 
   const changeDict = useCallback(() => {
@@ -81,16 +83,25 @@ const useGameLogic = (): GameLogic => {
   }, [dictionary]);
 
   const calculateScore = useCallback(() => {
+    console.log(stats.score);
+
     const { word, longWord, hyphenWord, character, error } = stats;
     const scoreMath = Math.round(
       word * 5 + longWord * 15 + hyphenWord * 30 + character * 0.5 - error * 10
     );
+
     setStats((prev) => ({
       ...prev,
       score: scoreMath,
-      points: prev.points + scoreMath,
+      points: prev.points - prev.score + scoreMath,
     }));
+
+    console.log(stats.score);
   }, [stats]);
+
+
+    
+
 
   const favoriteWord = useCallback(() => {
     setFavWords((prev) => (prev.includes(selectedWord) ? prev : [...prev, selectedWord]));
@@ -157,6 +168,7 @@ const useGameLogic = (): GameLogic => {
             hyphenWord: selectedWord.includes("-") ? prev.hyphenWord + 1 : prev.hyphenWord,
             sequenceError: 0,
           }));
+          calculateScore();
           getRandomWord();
         } else {
           wrongAnswerAudio.play();

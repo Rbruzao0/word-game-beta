@@ -85,13 +85,13 @@ const NavBar: React.FC<NavBarProps> = ({ setChosenDict, points, setPoints }) => 
                 <MenuItem onClick={() => handleDictionarySelection(dict)}>
                   <Box display="flex" justifyContent="space-between" width="100%">
                     <Typography>{dict.name}</Typography>
+                  </Box>
                     {!dict.bought && (
                       <>
                         {dict.price > 0 && <Typography>{dict.price}</Typography>}
                         <LockOutlinedIcon sx={{ ml: 1 }} />
                       </>
                     )}
-                  </Box>
                 </MenuItem>
               </Tooltip>
             ))}

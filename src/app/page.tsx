@@ -83,7 +83,7 @@ const MainPage: React.FC = () => {
               <InfoText>Characters: {stats.character}</InfoText>
               <InfoText>Long words: {stats.longWord}</InfoText>
               <InfoText>Hyphenated words: {stats.hyphenWord}</InfoText>
-              <InfoText>Past Score: {stats.score}</InfoText>
+              <InfoText>Score: {stats.score}</InfoText>
             </Box>
             <SelectedWordText>{selectedWord}</SelectedWordText>
           </Box>
