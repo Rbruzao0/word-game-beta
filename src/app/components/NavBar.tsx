@@ -9,12 +9,14 @@ import {
   Typography,
   Button,
   Menu,
-  MenuItem,
   Tooltip,
   Container,
+  List,
+  ListSubheader,
+  ListItemButton,
 } from "@mui/material";
 
-import dictionaries from "../dictionaries/dictsInfo";
+import wordsLists from "../dictionaries/dictsInfo";
 import tipsDictionary from "../dictionaries/misc/tipsDict";
 import LoginButton from "./LoginButton";
 
@@ -24,7 +26,11 @@ interface NavBarProps {
   setPoints: (value: React.SetStateAction<number>) => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ setChosenDict, points, setPoints }) => {
+const NavBar: React.FC<NavBarProps> = ({
+  setChosenDict,
+  points,
+  setPoints,
+}) => {
   const [tipText, setTipText] = useState("Type /start to start playing");
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -50,7 +56,9 @@ const NavBar: React.FC<NavBarProps> = ({ setChosenDict, points, setPoints }) => 
         alert(`The dictionary has been changed to ${dict.name}`);
       } else {
         if (points < dict.price) {
-          alert(`You need ${dict.price - points} more points to buy ${dict.name}`);
+          alert(
+            `You need ${dict.price - points} more points to buy ${dict.name}`
+          );
         } else {
           setPoints((prevPoints) => prevPoints - dict.price);
           dict.bought = true;
@@ -80,20 +88,69 @@ const NavBar: React.FC<NavBarProps> = ({ setChosenDict, points, setPoints }) => 
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
             transformOrigin={{ vertical: "top", horizontal: "right" }}
           >
-            {dictionaries.map((dict) => (
-              <Tooltip key={dict.id} title={`Contains ${dict.dict.length} words`}>
-                <MenuItem onClick={() => handleDictionarySelection(dict)}>
-                  <Box display="flex" justifyContent="space-between" width="100%">
-                    <Typography>{dict.name}</Typography>
-                  </Box>
-                    {!dict.bought && (
-                      <>
-                        {dict.price > 0 && <Typography>{dict.price}</Typography>}
-                        <LockOutlinedIcon sx={{ ml: 1 }} />
-                      </>
-                    )}
-                </MenuItem>
-              </Tooltip>
+            {wordsLists.map((list) => (
+              <List
+                sx={{
+                  width: "100%",
+                  maxWidth: 360,
+                  bgcolor: "background.paper",
+                }}
+                component="nav"
+                aria-labelledby="nested-list-subheader"
+                subheader={
+                  <ListSubheader component="div" id="nested-list-subheader">
+                    {list.category}
+                  </ListSubheader>
+                }
+              >
+                {list.dicts.map((dict) => (
+                  <Tooltip
+                    key={dict.id}
+                    title={`${dict.name} (${dict.dict.length} words)`}
+                  >
+                    <ListItemButton
+                      onClick={() => handleDictionarySelection(dict)}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        padding: "8px 16px",
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          flexGrow: 1,
+                          marginRight: 2,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {dict.id} - {dict.name}
+                      </Typography>
+                      {!dict.bought && (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            marginLeft: "auto",
+                          }}
+                        >
+                          {dict.price > 0 && (
+                            <Typography sx={{ marginRight: 1 }}>
+                              {dict.price}
+                            </Typography>
+                          )}
+                          <LockOutlinedIcon />
+                        </Box>
+                      )}
+                    </ListItemButton>
+                  </Tooltip>
+                ))}
+              </List>
             ))}
           </Menu>
           <Box flexGrow={1} />
