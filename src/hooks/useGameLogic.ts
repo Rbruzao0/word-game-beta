@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 
-import dictionaries from "ss/app/dictionaries/dictsInfo";
+import wordsLists from "ss/app/dictionaries/dictsInfo";
 import jklmWordsDict from "ss/app/dictionaries/misc/jklmWordsDict";
 
 const INITIAL_STATS = {
@@ -65,11 +65,18 @@ const useGameLogic = (): GameLogic => {
 
   const changeDict = useCallback(() => {
     if (chosenDict !== undefined) {
-      const selectedDict = dictionaries[chosenDict];
+      const selectedDict = wordsLists
+        .flatMap((category) => category.dicts)
+        .find((dict) => dict.id === chosenDict);
+
       if (selectedDict) {
         resetGame();
         setDictionary(selectedDict.dict);
+      } else {
+        console.error(`Dictionary with ID ${chosenDict} not found.`);
       }
+    } else {
+      console.error("chosenDict is undefined.");
     }
   }, [chosenDict, resetGame]);
 
@@ -83,8 +90,6 @@ const useGameLogic = (): GameLogic => {
   }, [dictionary]);
 
   const calculateScore = useCallback(() => {
-    console.log(stats.score);
-
     const { word, longWord, hyphenWord, character, error } = stats;
     const scoreMath = Math.round(
       word * 5 + longWord * 15 + hyphenWord * 30 + character * 0.5 - error * 10
@@ -95,16 +100,12 @@ const useGameLogic = (): GameLogic => {
       score: scoreMath,
       points: prev.points - prev.score + scoreMath,
     }));
-
-    console.log(stats.score);
   }, [stats]);
 
-
-    
-
-
   const favoriteWord = useCallback(() => {
-    setFavWords((prev) => (prev.includes(selectedWord) ? prev : [...prev, selectedWord]));
+    setFavWords((prev) =>
+      prev.includes(selectedWord) ? prev : [...prev, selectedWord]
+    );
   }, [selectedWord]);
 
   const handleCommands = useCallback(() => {
@@ -116,8 +117,7 @@ const useGameLogic = (): GameLogic => {
           setStarted(true);
           setTextInputValue("");
           getRandomWord();
-        };
-
+        }
       },
       "/reset": resetGame,
       "/restart": resetGame,
@@ -165,7 +165,9 @@ const useGameLogic = (): GameLogic => {
             word: prev.word + 1,
             character: prev.character + length,
             longWord: length >= 20 ? prev.longWord + 1 : prev.longWord,
-            hyphenWord: selectedWord.includes("-") ? prev.hyphenWord + 1 : prev.hyphenWord,
+            hyphenWord: selectedWord.includes("-")
+              ? prev.hyphenWord + 1
+              : prev.hyphenWord,
             sequenceError: 0,
           }));
           calculateScore();
@@ -183,7 +185,15 @@ const useGameLogic = (): GameLogic => {
         setTextInputValue("");
       }
     },
-    [textInputValue, handleCommands, selectedWord, getRandomWord, correctAnswerAudio, wrongAnswerAudio, stats.sequenceError]
+    [
+      textInputValue,
+      handleCommands,
+      selectedWord,
+      getRandomWord,
+      correctAnswerAudio,
+      wrongAnswerAudio,
+      stats.sequenceError,
+    ]
   );
 
   return {
