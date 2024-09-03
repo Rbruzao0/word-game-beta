@@ -37,7 +37,7 @@ type GameLogic = {
   favWords: string[];
   setStats: React.Dispatch<React.SetStateAction<Stats>>;
   setTextInputValue: React.Dispatch<React.SetStateAction<string>>;
-  setChosenDict: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setChosenDict: React.Dispatch<React.SetStateAction<number | RegExpMatchArray | null | undefined>>;
   handleKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
@@ -46,7 +46,7 @@ const useGameLogic = (): GameLogic => {
   const [selectedWord, setSelectedWord] = useState<string>("/start");
   const [textInputValue, setTextInputValue] = useState<string>("");
   const [dictionary, setDictionary] = useState<string[]>(jklmWordsDict);
-  const [chosenDict, setChosenDict] = useState<number | undefined>();
+  const [chosenDict, setChosenDict] = useState<number | RegExpMatchArray | null | undefined>();
   const [stats, setStats] = useState<Stats>(INITIAL_STATS);
   const [favWords, setFavWords] = useState<string[]>([]);
 
@@ -72,11 +72,7 @@ const useGameLogic = (): GameLogic => {
       if (selectedDict) {
         resetGame();
         setDictionary(selectedDict.dict);
-      } else {
-        console.error(`Dictionary with ID ${chosenDict} not found.`);
       }
-    } else {
-      console.error("chosenDict is undefined.");
     }
   }, [chosenDict, resetGame]);
 
@@ -135,42 +131,55 @@ const useGameLogic = (): GameLogic => {
       "/star": favoriteWord,
       "/fav": favoriteWord,
     };
-
-    const isValidCommand = (value: string): value is keyof typeof commands => {
-      return value in commands;
-    };
-
-    if (isValidCommand(textInputValue)) {
-      commands[textInputValue]();
+  
+    const matchedCommand = Object.keys(commands).find((command): command is keyof typeof commands =>
+      textInputValue.startsWith(command)
+    );
+  
+    if (matchedCommand) {
+      commands[matchedCommand]();
       return true;
     }
     return false;
-  }, [textInputValue, resetGame, getRandomWord, favoriteWord]);
+  }, [textInputValue, resetGame, getRandomWord, favoriteWord, started]);
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === "Enter" && textInputValue) {
         if (handleCommands()) return;
-
+        
         if (textInputValue.startsWith("/")) {
           setTextInputValue("");
           return;
         }
-
+        
         if (textInputValue.toLowerCase() === selectedWord.toLowerCase()) {
           correctAnswerAudio.play();
           const { length } = selectedWord;
-          setStats((prev) => ({
-            ...prev,
-            word: prev.word + 1,
-            character: prev.character + length,
-            longWord: length >= 20 ? prev.longWord + 1 : prev.longWord,
-            hyphenWord: selectedWord.includes("-")
-              ? prev.hyphenWord + 1
-              : prev.hyphenWord,
-            sequenceError: 0,
-          }));
-          calculateScore();
+          setStats((prev) => {
+            const updatedStats = {
+              ...prev,
+              word: prev.word + 1,
+              character: prev.character + length,
+              longWord: length >= 20 ? prev.longWord + 1 : prev.longWord,
+              hyphenWord: selectedWord.includes("-")
+                ? prev.hyphenWord + 1
+                : prev.hyphenWord,
+              sequenceError: 0,
+            };
+            const scoreMath = Math.round(
+              updatedStats.word * 5 +
+              updatedStats.longWord * 15 +
+              updatedStats.hyphenWord * 30 +
+              updatedStats.character * 0.5 -
+              updatedStats.error * 10
+            );
+            return {
+              ...updatedStats,
+              score: scoreMath,
+              points: prev.points - prev.score + scoreMath,
+            };
+          });
           getRandomWord();
         } else {
           wrongAnswerAudio.play();
@@ -181,21 +190,21 @@ const useGameLogic = (): GameLogic => {
           }));
           if (stats.sequenceError >= 2) getRandomWord();
         }
-
+  
         setTextInputValue("");
       }
     },
     [
       textInputValue,
-      handleCommands,
       selectedWord,
       getRandomWord,
       correctAnswerAudio,
       wrongAnswerAudio,
+      handleCommands,
       stats.sequenceError,
     ]
   );
-
+  
   return {
     started,
     selectedWord,
