@@ -95,6 +95,7 @@ const NavBar: React.FC<NavBarProps> = ({
                   maxWidth: 360,
                   bgcolor: "background.paper",
                 }}
+                key={list.category}
                 component="nav"
                 aria-labelledby="nested-list-subheader"
                 subheader={

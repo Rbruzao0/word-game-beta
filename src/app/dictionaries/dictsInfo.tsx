@@ -63,7 +63,7 @@ import cameroonCitiesDict from "./misc/CEPs/cities/cameroonCItiesDict";
 import canadaCitiesDict from "./misc/CEPs/cities/canadaCitiesDict";
 import centralAfricanRepublicCitiesDict from "./misc/CEPs/cities/centralAfricanRepublicCitiesDict";
 import chadCitiesDict from "./misc/CEPs/cities/chadCitiesDict";
-import chileCitiesDict from "./misc/CEPs/cities/chileCItiesDict";
+import chileCitiesDict from "./misc/CEPs/cities/chileCitiesDict";
 import chinaCitiesDict from "./misc/CEPs/cities/chinaCitiesDict";
 import colombiaCitiesDict from "./misc/CEPs/cities/colombiaCitiesDict";
 import congoCitiesDict from "./misc/CEPs/cities/congoCitiesDict";
@@ -120,9 +120,9 @@ import paraguayCitiesDict from "./misc/CEPs/cities/paraguayCitiesDict";
 import peruCitiesDict from "./misc/CEPs/cities/peruCitiesDict";
 import philippinesCitiesDict from "./misc/CEPs/cities/philippinesCitiesDict";
 import polandCitiesDict from "./misc/CEPs/cities/polandCitiesDict";
-import portugalCitiesDict from "./misc/CEPs/cities/PortugalCitiesDict";
+import portugalCitiesDict from "./misc/CEPs/cities/portugalCitiesDict";
 import romaniaCitiesDict from "./misc/CEPs/cities/romaniaCitiesDict";
-import russiaCitiesDict from "./misc/CEPs/cities/RussiaCitiesDict";
+import russiaCitiesDict from "./misc/CEPs/cities/russiaCitiesDict";
 import saudiArabiaCitiesDict from "./misc/CEPs/cities/saudiArabiaCitiesDict";
 import senegalCitiesDict from "./misc/CEPs/cities/senegalCitiesDict";
 import serbiaCitiesDict from "./misc/CEPs/cities/serbiaCitiesDict";
@@ -402,7 +402,7 @@ const wordsLists = [
         name: "AFGHANISTAN CITIES DICT",
         dict: afghanistanCitiesDict,
         price: 100,
-        bought: true,
+        bought: false,
       },
       {
         id: 5002,
@@ -1070,7 +1070,7 @@ const wordsLists = [
         bought: false,
       },
       {
-        id: 50097,
+        id: 5097,
         name: "TAIWAN CITIES DICT",
         dict: taiwanCitiesDict,
         price: 100,
