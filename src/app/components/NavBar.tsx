@@ -22,14 +22,14 @@ import LoginButton from "./LoginButton";
 import useGameLogic from "ss/hooks/useGameLogic";
 
 interface NavBarProps {
+  setChosenDictId: (value: React.SetStateAction<number | undefined | null | RegExpMatchArray>) => void;
   points: number;
   setPoints: (value: React.SetStateAction<number>) => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ points, setPoints }) => {
+const NavBar: React.FC<NavBarProps> = ({ points, setChosenDictId, setPoints }) => {
   const [tipText, setTipText] = useState("Type /start to start playing");
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const { setChosenDict } = useGameLogic();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -51,7 +51,7 @@ const NavBar: React.FC<NavBarProps> = ({ points, setPoints }) => {
   const handleDictionarySelection = useCallback(
     (dict: { bought: boolean; id: number; name: string; price: number }) => {
       if (dict.bought) {
-        setChosenDict(dict.id);
+        setChosenDictId(dict.id);
         alert(`The dictionary has been changed to ${dict.name}`);
       } else if (points < dict.price) {
         alert(
@@ -60,12 +60,12 @@ const NavBar: React.FC<NavBarProps> = ({ points, setPoints }) => {
       } else {
         setPoints((prevPoints) => prevPoints - dict.price);
         dict.bought = true;
-        setChosenDict(dict.id);
+        setChosenDictId(dict.id);
         alert(`Successfully purchased ${dict.name}`);
       }
       handleCloseNavMenu();
     },
-    [points, setChosenDict, setPoints]
+    [points, setChosenDictId, setPoints]
   );
 
   return (

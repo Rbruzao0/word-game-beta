@@ -17,7 +17,6 @@ import CountupTimer from "./components/CountupTimer";
 import Achievements from "./components/Achievements";
 import NavBar from "./components/NavBar";
 
-// Styled components
 const SelectedWordText = styled("div")(({ theme }) => ({
   ...theme.typography.button,
   backgroundColor: theme.palette.background.paper,
@@ -46,6 +45,7 @@ const MainPage: React.FC = () => {
     stats,
     correctSequence,
     setStats,
+    setChosenDictId,
     setTextInputValue,
     handleKeyDown,
   } = useGameLogic();
@@ -62,7 +62,7 @@ const MainPage: React.FC = () => {
 
   return (
     <>
-      <NavBar points={stats.points} setPoints={handleSetPoints} />
+      <NavBar setChosenDictId={setChosenDictId} points={stats.points} setPoints={handleSetPoints} />
       <Container fixed>
         <Box
           display="flex"

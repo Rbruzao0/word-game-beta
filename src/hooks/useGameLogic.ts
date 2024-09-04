@@ -38,7 +38,7 @@ type GameLogic = {
   favWords: string[];
   setStats: React.Dispatch<React.SetStateAction<Stats>>;
   setTextInputValue: React.Dispatch<React.SetStateAction<string>>;
-  setChosenDict: React.Dispatch<React.SetStateAction<number | RegExpMatchArray | null | undefined>>;
+  setChosenDictId: React.Dispatch<React.SetStateAction<number | RegExpMatchArray | null | undefined>>;
   handleKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
@@ -47,7 +47,7 @@ const useGameLogic = (): GameLogic => {
   const [selectedWord, setSelectedWord] = useState<string>("/start");
   const [textInputValue, setTextInputValue] = useState<string>("");
   const [dictionary, setDictionary] = useState<string[]>(jklmWordsDict);
-  const [chosenDict, setChosenDict] = useState<number | RegExpMatchArray | null | undefined>();
+  const [chosenDictId, setChosenDictId] = useState<number | RegExpMatchArray | null | undefined>();
   const [stats, setStats] = useState<Stats>(INITIAL_STATS);
   const [favWords, setFavWords] = useState<string[]>([]);
   const [correctSequence, setCorrectSequence] = useState<number>(0);
@@ -71,7 +71,6 @@ const useGameLogic = (): GameLogic => {
   };
 
   const resetGame = useCallback(() => {
-    setSelectedWord("/start");
     setStarted(false);
     setTextInputValue("");
     setCorrectSequence(0);
@@ -79,24 +78,27 @@ const useGameLogic = (): GameLogic => {
       ...INITIAL_STATS,
       points: prevStats.points,
     }));
+      
+    setSelectedWord("/start");  
   }, []);
 
-  const changeDict = useCallback(() => {
-    if (chosenDict !== undefined) {
+  const changeDict = () => {  
+    if (chosenDictId !== undefined) {
       const selectedDict = wordsLists
         .flatMap((category) => category.dicts)
-        .find((dict) => dict.id === chosenDict);
-
+        .find((dict) => dict.id === chosenDictId);
+      
       if (selectedDict) {
-        resetGame();
         setDictionary(selectedDict.dict);
+        resetGame(); 
       }
     }
-  }, [chosenDict, resetGame]);
+  }
+  
 
   useEffect(() => {
     changeDict();
-  }, [changeDict]);
+  }, [chosenDictId]);
 
   const getRandomWord = useCallback(() => {
     const randomIndex = Math.floor(Math.random() * dictionary.length);
@@ -153,6 +155,7 @@ const useGameLogic = (): GameLogic => {
       if (event.key === "Enter" && textInputValue) {
         if (handleCommands()) return;
         
+        
         if (textInputValue.startsWith("/")) {
           setTextInputValue("");
           return;
@@ -197,7 +200,13 @@ const useGameLogic = (): GameLogic => {
             error: prev.error + 1,
             sequenceError: prev.sequenceError + 1,
           }));
-          if (stats.sequenceError >= 2) getRandomWord();
+          if (stats.sequenceError >= 2) {
+            setStats((prev) => ({
+              ...prev, 
+              sequenceError: 0
+            }))
+            getRandomWord();
+          }
         }
   
         setTextInputValue("");
@@ -223,7 +232,7 @@ const useGameLogic = (): GameLogic => {
     favWords,
     setStats,
     setTextInputValue,
-    setChosenDict,
+    setChosenDictId,
     handleKeyDown,
   };
 };
