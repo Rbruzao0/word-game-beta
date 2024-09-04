@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import { CheckCircleOutline } from "@mui/icons-material";
 import { Alert } from "@mui/material";
@@ -29,6 +27,7 @@ const Achievements: React.FC<AchievementsProps> = ({
   longWords,
   hyphenWords,
 }) => {
+  const [notificated, setNotificated] = useState<boolean>(false);
   const [currentAchievement, setCurrentAchievement] =
     useState<Achievement | null>(null);
 
@@ -39,8 +38,11 @@ const Achievements: React.FC<AchievementsProps> = ({
         longWordsAchievements.find((ach) => ach.longWords === longWords) ||
         hyphenWordsAchievements.find((ach) => ach.hyphenWords === hyphenWords);
 
-      if (achievement) {
-        setCurrentAchievement(achievement);
+      if (achievement && !notificated && !currentAchievement) {
+        setNotificated(true);
+        return setCurrentAchievement(achievement);
+      } else if (!achievement) {
+        setNotificated(false);
       }
     };
 
