@@ -153,6 +153,8 @@ import frenchWordsDict from "./misc/miscLanguages/frenchWordsDict";
 import latinWordsDict from "./misc/miscLanguages/latinWordsDict";
 import languagesDict from "./misc/languagesDict";
 import italianWordsDict from "./misc/miscLanguages/italianWordsDict";
+import tibiaDict from "./misc/games/tibiaDict";
+import minecraftItemsDict from "./misc/games/minecraftItemsDict";
 
 const wordsLists = [
   {
@@ -429,6 +431,20 @@ const wordsLists = [
         id: 4013,
         name: "LANGUAGES DICT",
         dict: languagesDict,
+        price: 100,
+        bought: false,
+      },
+      {
+        id: 4014,
+        name: "TIBIA DICT",
+        dict: tibiaDict,
+        price: 100,
+        bought: false,
+      },
+      {
+        id: 4015,
+        name: "MINECRAFT ITEMS DICT",
+        dict: minecraftItemsDict,
         price: 100,
         bought: false,
       },
