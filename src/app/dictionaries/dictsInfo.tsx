@@ -1,8 +1,8 @@
-// Nahuatl and Miscellaneous
+// Miscellaneous
 import jklmWordsDict from "./misc/games/jklmWordsDict";
-import koreanWordsDict from "./misc/misc languages/koreanWordsDict";
+import koreanWordsDict from "./misc/miscLanguages/koreanWordsDict";
 import leagueOfLegendsDict from "./misc/games/leagueOfLegendsDict";
-import nahuatlSnWordsDict from "./misc/misc languages/nahuatlSnWordsDict";
+import nahuatlSnWordsDict from "./misc/miscLanguages/nahuatlSnWordsDict";
 import pokemonDict from "./misc/games/pokemonDict";
 import mythologicalDict from "./misc/mythologicalDict";
 import worldCitiesDict from "./misc/CEPs/worldCitiesDict";
@@ -148,11 +148,11 @@ import unitedStatesCitiesDict from "./misc/CEPs/cities/unitedStatesCitiesDict";
 import uzbekistanCitiesDict from "./misc/CEPs/cities/uzbekistanCitiesDict";
 import venezuelaCitiesDict from "./misc/CEPs/cities/venezuelaCitiesDict";
 import vietnamCitiesDict from "./misc/CEPs/cities/vietnamCitiesDict";
-import germanWordsDict from "./misc/misc languages/germanWordsDict";
-import frenchWordsDict from "./misc/misc languages/frenchWordsDict";
-import latinWordsDict from "./misc/misc languages/latinWordsDict";
+import germanWordsDict from "./misc/miscLanguages/germanWordsDict";
+import frenchWordsDict from "./misc/miscLanguages/frenchWordsDict";
+import latinWordsDict from "./misc/miscLanguages/latinWordsDict";
 import languagesDict from "./misc/languagesDict";
-import italianWordsDict from "./misc/misc languages/italianWordsDict";
+import italianWordsDict from "./misc/miscLanguages/italianWordsDict";
 
 const wordsLists = [
   {
