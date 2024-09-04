@@ -101,19 +101,6 @@ const useGameLogic = (): GameLogic => {
     setSelectedWord(dictionary[randomIndex]);
   }, [dictionary]);
 
-  const calculateScore = useCallback(() => {
-    const { word, longWord, hyphenWord, character, error } = stats;
-    const scoreMath = Math.round(
-      word * 5 + longWord * 15 + hyphenWord * 30 + character * 0.5 - error * 10
-    );
-
-    setStats((prev) => ({
-      ...prev,
-      score: scoreMath,
-      points: prev.points - prev.score + scoreMath,
-    }));
-  }, [stats]);
-
   const favoriteWord = useCallback(() => {
     setFavWords((prev) =>
       prev.includes(selectedWord) ? prev : [...prev, selectedWord]
