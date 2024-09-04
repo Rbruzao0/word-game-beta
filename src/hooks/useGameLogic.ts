@@ -34,6 +34,7 @@ type GameLogic = {
   selectedWord: string;
   textInputValue: string;
   stats: Stats;
+  correctSequence: number;
   favWords: string[];
   setStats: React.Dispatch<React.SetStateAction<Stats>>;
   setTextInputValue: React.Dispatch<React.SetStateAction<string>>;
@@ -49,6 +50,7 @@ const useGameLogic = (): GameLogic => {
   const [chosenDict, setChosenDict] = useState<number | RegExpMatchArray | null | undefined>();
   const [stats, setStats] = useState<Stats>(INITIAL_STATS);
   const [favWords, setFavWords] = useState<string[]>([]);
+  const [correctSequence, setCorrectSequence] = useState<number>(0);
 
   const [correctAnswerAudio, setCorrectAnswerAudio] = useState<HTMLAudioElement | null>(null);
   const [wrongAnswerAudio, setWrongAnswerAudio] = useState<HTMLAudioElement | null>(null);
@@ -67,7 +69,6 @@ const useGameLogic = (): GameLogic => {
   const playWrongSound = () => {
     wrongAnswerAudio?.play();
   };
-
 
   const resetGame = useCallback(() => {
     setSelectedWord("/start");
@@ -157,8 +158,11 @@ const useGameLogic = (): GameLogic => {
         }
         
         if (textInputValue.toLowerCase() === selectedWord.toLowerCase()) {
-          playCorrectSound();
           const { length } = selectedWord;
+          
+          playCorrectSound();
+          setCorrectSequence((prev) => prev + 1)
+          
           setStats((prev) => {
             const updatedStats = {
               ...prev,
@@ -186,6 +190,7 @@ const useGameLogic = (): GameLogic => {
           getRandomWord();
         } else {
           playWrongSound();
+          setCorrectSequence(0)
           setStats((prev) => ({
             ...prev,
             error: prev.error + 1,
@@ -213,6 +218,7 @@ const useGameLogic = (): GameLogic => {
     selectedWord,
     textInputValue,
     stats,
+    correctSequence,
     favWords,
     setStats,
     setTextInputValue,

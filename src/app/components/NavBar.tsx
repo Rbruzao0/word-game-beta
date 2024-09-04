@@ -19,20 +19,17 @@ import {
 import wordsLists from "../dictionaries/dictsInfo";
 import tipsDictionary from "../dictionaries/misc/tipsDict";
 import LoginButton from "./LoginButton";
+import useGameLogic from "ss/hooks/useGameLogic";
 
 interface NavBarProps {
-  setChosenDict: (value: React.SetStateAction<number | undefined>) => void;
   points: number;
   setPoints: (value: React.SetStateAction<number>) => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({
-  setChosenDict,
-  points,
-  setPoints,
-}) => {
+const NavBar: React.FC<NavBarProps> = ({ points, setPoints }) => {
   const [tipText, setTipText] = useState("Type /start to start playing");
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const { setChosenDict } = useGameLogic();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -47,24 +44,24 @@ const NavBar: React.FC<NavBarProps> = ({
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => setAnchorElUser(null);
+  const handleCloseNavMenu = () => {
+    setAnchorElUser(null);
+  };
 
   const handleDictionarySelection = useCallback(
     (dict: { bought: boolean; id: number; name: string; price: number }) => {
       if (dict.bought) {
         setChosenDict(dict.id);
         alert(`The dictionary has been changed to ${dict.name}`);
+      } else if (points < dict.price) {
+        alert(
+          `You need ${dict.price - points} more points to buy ${dict.name}`
+        );
       } else {
-        if (points < dict.price) {
-          alert(
-            `You need ${dict.price - points} more points to buy ${dict.name}`
-          );
-        } else {
-          setPoints((prevPoints) => prevPoints - dict.price);
-          dict.bought = true;
-          setChosenDict(dict.id);
-          alert(`Successfully purchased ${dict.name}`);
-        }
+        setPoints((prevPoints) => prevPoints - dict.price);
+        dict.bought = true;
+        setChosenDict(dict.id);
+        alert(`Successfully purchased ${dict.name}`);
       }
       handleCloseNavMenu();
     },
@@ -90,12 +87,12 @@ const NavBar: React.FC<NavBarProps> = ({
           >
             {wordsLists.map((list) => (
               <List
+                key={list.category}
                 sx={{
                   width: "100%",
                   maxWidth: 360,
                   bgcolor: "background.paper",
                 }}
-                key={list.category}
                 component="nav"
                 aria-labelledby="nested-list-subheader"
                 subheader={

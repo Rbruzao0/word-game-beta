@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-
 import { styled } from "@mui/material/styles";
 import { TypographyProps } from "@mui/material/Typography";
 import {
@@ -18,6 +17,7 @@ import CountupTimer from "./components/CountupTimer";
 import Achievements from "./components/Achievements";
 import NavBar from "./components/NavBar";
 
+// Styled components
 const SelectedWordText = styled("div")(({ theme }) => ({
   ...theme.typography.button,
   backgroundColor: theme.palette.background.paper,
@@ -44,27 +44,25 @@ const MainPage: React.FC = () => {
     selectedWord,
     textInputValue,
     stats,
+    correctSequence,
     setStats,
     setTextInputValue,
-    setChosenDict,
     handleKeyDown,
   } = useGameLogic();
 
+  const handleSetPoints = (value: React.SetStateAction<number>) => {
+    setStats((prevStats) => ({
+      ...prevStats,
+      points:
+        typeof value === "function"
+          ? (value as (prevPoints: number) => number)(prevStats.points)
+          : value,
+    }));
+  };
+
   return (
     <>
-      <NavBar
-        setChosenDict={setChosenDict}
-        points={stats.points}
-        setPoints={(value: React.SetStateAction<number>) =>
-          setStats((prevStats) => ({
-            ...prevStats,
-            points:
-              typeof value === "function"
-                ? (value as (prevPoints: number) => number)(prevStats.points)
-                : value,
-          }))
-        }
-      />
+      <NavBar points={stats.points} setPoints={handleSetPoints} />
       <Container fixed>
         <Box
           display="flex"
@@ -73,20 +71,17 @@ const MainPage: React.FC = () => {
           justifyContent="space-evenly"
           height="90vh"
         >
-          <Box>
-            <Box padding={2}>
-              <InfoText color="red">Errors: {stats.error}</InfoText>
-              <InfoText color="yellow">
-                Skipped words: {stats.skippedWords}
-              </InfoText>
-              <InfoText>Words: {stats.word}</InfoText>
-              <InfoText>Characters: {stats.character}</InfoText>
-              <InfoText>Long words: {stats.longWord}</InfoText>
-              <InfoText>Hyphenated words: {stats.hyphenWord}</InfoText>
-              <InfoText>Score: {stats.score}</InfoText>
-            </Box>
-            <SelectedWordText>{selectedWord}</SelectedWordText>
+          <Box padding={2}>
+            <InfoText color="red">Errors: {stats.error}</InfoText>
+            <InfoText color="yellow">Skipped words: {stats.skippedWords}</InfoText>
+            <InfoText>Words: {stats.word}</InfoText>
+            <InfoText>Characters: {stats.character}</InfoText>
+            <InfoText>Long words: {stats.longWord}</InfoText>
+            <InfoText>Hyphenated words: {stats.hyphenWord}</InfoText>
+            <InfoText>Correct words sequence: {correctSequence}</InfoText>
+            <InfoText>Score: {stats.score}</InfoText>
           </Box>
+          <SelectedWordText>{selectedWord}</SelectedWordText>
           <SelectedWordText>{textInputValue}</SelectedWordText>
           <NoSsr>
             <Paper sx={{ display: "flex", alignItems: "center", width: 300 }}>
@@ -95,7 +90,7 @@ const MainPage: React.FC = () => {
                 onKeyDown={handleKeyDown}
                 value={textInputValue}
                 onChange={(e) => setTextInputValue(e.target.value)}
-                style={{
+                sx={{
                   borderRadius: 4,
                   padding: "10px 12px",
                   fontSize: 16,
