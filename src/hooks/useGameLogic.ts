@@ -74,6 +74,7 @@ const useGameLogic = (): GameLogic => {
     setSelectedWord("/start");
     setStarted(false);
     setTextInputValue("");
+    setCorrectSequence(0);
     setStats((prevStats) => ({
       ...INITIAL_STATS,
       points: prevStats.points,
