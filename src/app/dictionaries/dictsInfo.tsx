@@ -1,9 +1,9 @@
 // Nahuatl and Miscellaneous
-import jklmWordsDict from "./misc/jklmWordsDict";
-import koreanWordsDict from "./misc/koreanWordsDict";
-import leagueOfLegendsDict from "./misc/leagueOfLegendsDict";
-import nahuatlSnWordsDict from "./misc/nahuatlSnWordsDict";
-import pokemonDict from "./misc/pokemonDict";
+import jklmWordsDict from "./misc/games/jklmWordsDict";
+import koreanWordsDict from "./misc/misc languages/koreanWordsDict";
+import leagueOfLegendsDict from "./misc/games/leagueOfLegendsDict";
+import nahuatlSnWordsDict from "./misc/misc languages/nahuatlSnWordsDict";
+import pokemonDict from "./misc/games/pokemonDict";
 import mythologicalDict from "./misc/mythologicalDict";
 import worldCitiesDict from "./misc/CEPs/worldCitiesDict";
 import worldCountriesDict from "./misc/CEPs/worldCountriesDict";
@@ -148,6 +148,11 @@ import unitedStatesCitiesDict from "./misc/CEPs/cities/unitedStatesCitiesDict";
 import uzbekistanCitiesDict from "./misc/CEPs/cities/uzbekistanCitiesDict";
 import venezuelaCitiesDict from "./misc/CEPs/cities/venezuelaCitiesDict";
 import vietnamCitiesDict from "./misc/CEPs/cities/vietnamCitiesDict";
+import germanWordsDict from "./misc/misc languages/germanWordsDict";
+import frenchWordsDict from "./misc/misc languages/frenchWordsDict";
+import latinWordsDict from "./misc/misc languages/latinWordsDict";
+import languagesDict from "./misc/languagesDict";
+import italianWordsDict from "./misc/misc languages/italianWordsDict";
 
 const wordsLists = [
   {
@@ -390,6 +395,41 @@ const wordsLists = [
         name: "WORLD CITIES DICT",
         dict: worldCitiesDict,
         price: 1000,
+        bought: false,
+      },
+      {
+        id: 4009,
+        name: "GERMAN WORDS DICT",
+        dict: germanWordsDict,
+        price: 100,
+        bought: false,
+      },
+      {
+        id: 4010,
+        name: "LATIN WORDS DICT",
+        dict: latinWordsDict,
+        price: 100,
+        bought: false,
+      },
+      {
+        id: 4011,
+        name: "FRENCH WORDS DICT",
+        dict: frenchWordsDict,
+        price: 100,
+        bought: false,
+      },
+      {
+        id: 4012,
+        name: "ITALIAN WORDS DICT",
+        dict: italianWordsDict,
+        price: 100,
+        bought: false,
+      },
+      {
+        id: 4013,
+        name: "LANGUAGES DICT",
+        dict: languagesDict,
+        price: 100,
         bought: false,
       },
     ],

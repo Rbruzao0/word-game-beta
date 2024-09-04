@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 
 import wordsLists from "ss/app/dictionaries/dictsInfo";
-import jklmWordsDict from "ss/app/dictionaries/misc/jklmWordsDict";
+import jklmWordsDict from "ss/app/dictionaries/misc/games/jklmWordsDict";
 
 const INITIAL_STATS = {
   word: 0,
