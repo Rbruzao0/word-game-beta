@@ -22,7 +22,6 @@ const switzerlandCitiesDict = [
   "BERN",
   "BERNEX",
   "BIBERIST",
-  "BIEL/BIENNE",
   "BINNINGEN",
   "BIRSFELDEN",
   "BREMGARTEN",

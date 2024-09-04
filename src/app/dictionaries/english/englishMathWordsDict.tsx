@@ -1039,7 +1039,7 @@ const englishMathWordsDict = [
   "YIELD",
   "YOKE",
   "YOKE-ANGLE",
-  "YOTTA-",
+  "YOTTA",
   "YOTTAAMPERE",
   "YOTTABYTE",
   "YOUNG-TABLEAU",
