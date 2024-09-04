@@ -50,8 +50,24 @@ const useGameLogic = (): GameLogic => {
   const [stats, setStats] = useState<Stats>(INITIAL_STATS);
   const [favWords, setFavWords] = useState<string[]>([]);
 
-  const correctAnswerAudio = new Audio("/sounds/correctSound.wav");
-  const wrongAnswerAudio = new Audio("/sounds/wrongSound.wav");
+  const [correctAnswerAudio, setCorrectAnswerAudio] = useState<HTMLAudioElement | null>(null);
+  const [wrongAnswerAudio, setWrongAnswerAudio] = useState<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCorrectAnswerAudio(new Audio("/sounds/correctSound.wav"));
+      setWrongAnswerAudio(new Audio("/sounds/wrongSound.wav"));
+    }
+  }, []);
+
+  const playCorrectSound = () => {
+    correctAnswerAudio?.play();
+  };
+
+  const playWrongSound = () => {
+    wrongAnswerAudio?.play();
+  };
+
 
   const resetGame = useCallback(() => {
     setSelectedWord("/start");
@@ -154,7 +170,7 @@ const useGameLogic = (): GameLogic => {
         }
         
         if (textInputValue.toLowerCase() === selectedWord.toLowerCase()) {
-          correctAnswerAudio.play();
+          playCorrectSound();
           const { length } = selectedWord;
           setStats((prev) => {
             const updatedStats = {
@@ -182,7 +198,7 @@ const useGameLogic = (): GameLogic => {
           });
           getRandomWord();
         } else {
-          wrongAnswerAudio.play();
+          playWrongSound();
           setStats((prev) => ({
             ...prev,
             error: prev.error + 1,
